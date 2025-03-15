@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Meeting Roombookingsystem" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <nav style="background-color: #333; padding: 10px;">
+      <a href="/" style="color: white; margin-right: 15px;">Home</a>
+      <% if user_signed_in? %>
+        <% if current_user.role == "admin" %>
+          <a href="/admin_dashboard" style="color: white; margin-right: 15px;">Admin Dashboard</a>
+          <a href="/meeting_rooms" style="color: white; margin-right: 15px;">Manage Rooms</a>
+        <% else %>
+          <a href="/employee_dashboard" style="color: white; margin-right: 15px;">Employee Dashboard</a>
+          <a href="/bookings" style="color: white; margin-right: 15px;">My Bookings</a>
+          <a href="/bookings/availability" style="color: white; margin-right: 15px;">Check Availability</a>
+        <% end %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, style: "color: red;" %>
+      <% else %>
+        <a href="/users/sign_up" style="color: white; margin-right: 15px;">Sign Up</a>
+        <a href="/users/sign_in" style="color: white;">Login</a>
+      <% end %>
+    </nav>
+
+    <div style="padding: 20px;">
+      <%= yield %>
+    </div>
+  </body>
+</html>

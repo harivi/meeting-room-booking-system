@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="app/assets/stylsheets/employeeDB.css">
+<h1>Employee Dashboard</h1>
+<p class="welcome">Welcome <%= current_user.name %>!</p>
+<p class="note">Here you can book a meeting rooms.</p>
+
+<!--
+<nav style="background-color: #333; padding: 10px; margin-top: 20px;">
+  <a href="/employee_dashboard" style="color: white; margin-right: 15px;">Dashboard</a>
+  <a href="/bookings" style="color: white; margin-right: 15px;">My Bookings</a>
+  <a href="/bookings/availability" style="color: white; margin-right: 15px;">Check Availability</a>
+
+   
+  <form action="<%= destroy_user_session_path %>" method="post" style="display: inline;">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <button type="submit" style="background: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">Logout</button>
+  </form> 
+</nav>
+-->

@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: postgres  
+  password: Hari@10386 
+  host: localhost
+
+development:
+  <<: *default
+  database: meeting_roombookingsystem_development
+
+test:
+  <<: *default
+  database: meeting_roombookingsystem_test
+
+production:
+  <<: *default
+  database: meeting_roombookingsystem_production
+  username: meeting_roombookingsystem
+  password: <%= ENV['MEETING_ROOMBOOKINGSYSTEM_DATABASE_PASSWORD'] %>

@@ -1,0 +1,55 @@
+
+.name{
+    font-family: 'Times New Roman', Times, serif;
+    font-size:25px ;
+    text-align: left;
+    color: black;
+    margin-top: 1%;
+    
+}
+.signuptitle{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 50px;
+    color: black;
+    text-decoration: underline;
+    text-align: center;
+}
+.signup{
+    padding-left: 40%;
+    padding-right: 0%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    
+    
+    
+}
+.email{
+    font-family: 'Times New Roman', Times, serif;
+    font-size:25px ;
+    text-align: left;
+    color: black;
+    margin-top: 1%;
+}
+.password{
+    font-family: 'Times New Roman', Times, serif;
+    font-size:25px ;
+    text-align: left;
+    color: black;
+    margin-top: 1%;
+}
+.passwordconf{
+    font-family: 'Times New Roman', Times, serif;
+    font-size:25px ;
+    text-align: left;
+    color: black;
+    margin-top: 1%;
+}
+.role{
+    font-family: 'Times New Roman', Times, serif;
+    font-size:25px ;
+    text-align: left;
+    color: black;
+    margin-bottom: 20px;
+    margin-top: 1%;
+}
+

@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="app/assets/stylesheets/homepage.css">
+<div class="homepage">
+<h1 class="weltit">Welcome to the Meeting Room Booking System</h1>
+<p class="tagline">Elevate Your Meetings with a Tap</p>
+
+<% if user_signed_in? %>
+  <% if current_user.role == "admin" %>
+    <p>Go to your <a href="/admin_dashboard">Admin Dashboard</a>.</p>
+  <% else %>
+    <p>Go to your <a href="/employee_dashboard">Employee Dashboard</a>.</p>
+  <% end %>
+<% else %>
+  <p>Please   <a href="/users/sign_up"> Sign Up</a> or <a href="/users/sign_in">   Login</a>.</p>
+<% end %>
+</div>

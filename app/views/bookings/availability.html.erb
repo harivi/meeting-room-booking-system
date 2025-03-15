@@ -1,0 +1,26 @@
+<h1>Check Room Availability</h1>
+
+<%= form_with url: availability_bookings_path, method: :get, local: true do %>
+  <div>
+    <%= label_tag :date, "Select Date", style:"font-size:25px; font-family:Times New Roman; color:black;  " %>
+    <%= date_field_tag :date, @date %>
+  </div>
+  <div>
+    <%= submit_tag "Check Availability", style: "background-color: skyblue; color: black; border-radius: 15px; padding: 10px 20px; margin-top:10px; margin-bottom:10px;" %>
+  </div>
+<% end %>
+
+<h2>Available Rooms</h2>
+
+<% if @available_rooms.present? %>
+  <ul>
+    <% @available_rooms.each do |room| %>
+      <li>
+        <strong><%= room.room_name %></strong>  
+        (Capacity: <%= room.capacity %>, Location: <%= room.location %>)
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p style="color: red;">No available rooms for this date.</p>
+<% end %>

@@ -1,0 +1,27 @@
+<h1>Meeting Rooms</h1>
+
+<%= link_to "Add New Room", new_meeting_room_path, class: "btn btn-primary",style: "margin-bottom:10px;" %>
+
+<table border="1">
+  <tr>
+    <th>Room Name</th>
+    <th>Capacity</th>
+    <th>Location</th>
+    <th>Actions</th>
+  </tr>
+  
+  <% @meeting_rooms.each do |room| %>
+    <tr>
+      <td><%= room.room_name %></td>
+      <td><%= room.capacity %></td>
+      <td><%= room.location %></td>
+      
+      <td>
+        <%= link_to "Edit", edit_meeting_room_path(room) %> |
+        <!--<%= link_to "Delete", meeting_room_path(room), method: :delete, data: { confirm: "Are you sure?" } %>-->
+        <%= button_to "Delete", meeting_room_path(room), method: :delete, data: { confirm: "Are you sure?" }, style: "background: red; color: white; border: none; padding: 5px 10px; cursor: pointer;" %>
+
+      </td>
+    </tr>
+  <% end %>
+</table>

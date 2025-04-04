@@ -1,26 +1,43 @@
-<h1>Check Room Availability</h1>
+<h2>Check Room Availability</h2>
 
 <%= form_with url: availability_bookings_path, method: :get, local: true do %>
-  <div>
-    <%= label_tag :date, "Select Date", style:"font-size:25px; font-family:Times New Roman; color:black;  " %>
-    <%= date_field_tag :date, @date %>
-  </div>
-  <div>
-    <%= submit_tag "Check Availability", style: "background-color: skyblue; color: black; border-radius: 15px; padding: 10px 20px; margin-top:10px; margin-bottom:10px;" %>
-  </div>
+  <div style="margin-bottom: 15px;">
+  <label style="display: block; font-weight: bold; margin-bottom: 5px;">Select Date:</label>
+  <%= date_field_tag :date, params[:date] || Date.today, required: true, style: "padding: 8px; border: 1px solid #ccc; border-radius: 5px;" %>
+</div>
+
+<div style="margin-bottom: 15px;">
+  <label style="display: block; font-weight: bold; margin-bottom: 5px;">Select Room:</label>
+  <%= select_tag :room_id,
+      options_from_collection_for_select(MeetingRoom.all, :id, :room_name, params[:room_id]),
+      prompt: "Choose a Room",
+      required: true,
+      style: "padding: 8px; border: 1px solid #ccc; border-radius: 5px; width: 100%;" %>
+</div>
+
+<div>
+  <%= submit_tag "Check Availability", style: "background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" %>
+</div>
+
 <% end %>
 
-<h2>Available Rooms</h2>
+<% if @room.present? && @bookings.present? %>
+  <h3>Booked Slots for "<%= @room.room_name %>" on <%= @date.strftime("%d-%b-%Y") %>:</h3>
 
-<% if @available_rooms.present? %>
   <ul>
-    <% @available_rooms.each do |room| %>
-      <li>
-        <strong><%= room.room_name %></strong>  
-        (Capacity: <%= room.capacity %>, Location: <%= room.location %>)
-      </li>
+    <% @bookings.each do |booking| %>
+      <li><%= booking.start_time.strftime("%I:%M %p") %> - <%= booking.end_time.strftime("%I:%M %p") %></li>
     <% end %>
   </ul>
-<% else %>
-  <p style="color: red;">No available rooms for this date.</p>
+<% end %>
+
+<% if @available_slots.present? %>
+  <h3>Available Slots:</h3>
+  <ul>
+    <% @available_slots.each do |slot| %>
+      <li><%= slot[:start].strftime("%I:%M %p") %> - <%= slot[:end].strftime("%I:%M %p") %></li>
+    <% end %>
+  </ul>
+<% elsif @room.present? %>
+  <p>Remaining slots are available.</p>
 <% end %>

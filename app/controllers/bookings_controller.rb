@@ -15,7 +15,11 @@ class BookingsController < ApplicationController
 
   def create
     @booking = current_user.bookings.build(booking_params)
-
+    
+    if @booking.start_time.blank? || @booking.end_time.blank? || @booking.date.blank? || @booking.meeting_room_id.blank?
+      redirect_to bookings_path, alert: "Please fill in all booking details!"
+      return
+    end
     
     overlapping_booking = Booking.where(meeting_room_id: @booking.meeting_room_id, date: @booking.date)
                                  .where("start_time < ? AND end_time > ?", @booking.end_time, @booking.start_time)
@@ -49,15 +53,19 @@ class BookingsController < ApplicationController
 
   
   def availability
-    @date = params[:date] || Date.today
-    booked_room_ids = Booking.where(date: @date).pluck(:meeting_room_id)
+    @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
+    @room_id = params[:room_id]
   
-    
-    @available_rooms = booked_room_ids.present? ? MeetingRoom.where.not(id: booked_room_ids) : MeetingRoom.all
-  
-    
-    Rails.logger.info "Available Rooms: #{@available_rooms.inspect}"
+    if @room_id.present?
+      @room = MeetingRoom.find_by(id: @room_id)
+      @bookings = Booking.where(meeting_room_id: @room_id, date: @date)
+    else
+      booked_room_ids = Booking.where(date: @date).pluck(:meeting_room_id)
+      @available_rooms = booked_room_ids.present? ? MeetingRoom.where.not(id: booked_room_ids) : MeetingRoom.all
+    end
   end
+  
+  
   
 
   private

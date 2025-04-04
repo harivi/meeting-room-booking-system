@@ -24,6 +24,20 @@
 
   <body>
     <nav style="background-color: #333; padding: 10px;">
+    <% flash.each do |key, message| %>
+  <div class="flash <%= key %>" style="
+    margin: 20px;
+    padding: 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: <%= key == 'notice' ? '#d1e7dd' : '#f8d7da' %>;
+    color: <%= key == 'notice' ? '#0f5132' : '#842029' %>;
+    border: 1px solid <%= key == 'notice' ? '#badbcc' : '#f5c2c7' %>;
+  "><%= message %></div>
+<% end %>
+
       <a href="/" style="color: white; margin-right: 15px;">Home</a>
       <% if user_signed_in? %>
         <% if current_user.role == "admin" %>
